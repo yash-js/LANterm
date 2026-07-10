@@ -767,6 +767,81 @@ code {
   font-weight: 600;
 }
 
+/* ── How to use / commands ──────────────────────────────── */
+.usage-lead {
+  margin: 0 0 1.75rem;
+  max-width: 60ch;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.usage-cmd {
+  font-family: var(--font-mono);
+  color: var(--amber);
+}
+
+.usage-run {
+  max-width: 360px;
+  margin: 0 0 2rem;
+}
+
+.usage-steps {
+  margin-bottom: 2.25rem;
+}
+
+.usage-cmds-lead {
+  margin-bottom: 1rem;
+}
+
+.cmd-list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 720px) {
+  .cmd-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem 1.25rem;
+  }
+}
+
+.cmd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.15rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.cmd:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-elevated);
+}
+
+.cmd dt {
+  font-family: var(--font-mono);
+}
+
+.cmd dt code {
+  color: var(--amber);
+  background: transparent;
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.cmd dd {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 /* ── Code / install blocks ──────────────────────────────── */
 .install-blocks {
   display: grid;

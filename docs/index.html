@@ -88,8 +88,9 @@
 
         <nav class="site-nav" id="site-nav" aria-label="Primary">
           <a href="#features">Features</a>
-          <a href="#install">Install</a>
           <a href="#how">How it works</a>
+          <a href="#install">Install</a>
+          <a href="#usage">Usage</a>
           <a
             class="btn btn-github"
             href="https://github.com/yash-js/lanterm"
@@ -388,6 +389,88 @@ npm install
 npm run build:win        # or build:mac / build:linux / build:all</code></pre>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- ── How to use ───────────────────────────────────── -->
+      <section class="section section-alt" id="usage">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">How to use?</p>
+            <h2>Type <span class="usage-cmd">lanterm</span>. Start chatting.</h2>
+          </header>
+
+          <p class="usage-lead">
+            On first run LANterm adds itself to your PATH. After that, just open any
+            terminal — Terminal, PowerShell, or your shell — and run one word:
+          </p>
+
+          <div class="code-block usage-run">
+            <div class="code-block-bar">
+              <span class="code-label">Any terminal</span>
+              <button class="btn-copy" type="button" data-copy="lanterm">Copy</button>
+            </div>
+            <pre><code>lanterm</code></pre>
+          </div>
+
+          <ol class="steps usage-steps">
+            <li class="step">
+              <span class="step-num" aria-hidden="true">01</span>
+              <div>
+                <h3>Run <code>lanterm</code></h3>
+                <p>Open your terminal, type <code>lanterm</code>, and press Enter.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num" aria-hidden="true">02</span>
+              <div>
+                <h3>Pick a username</h3>
+                <p>First launch asks for a name — it’s saved for next time.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num" aria-hidden="true">03</span>
+              <div>
+                <h3>Type &amp; hit Enter</h3>
+                <p>Your message reaches everyone on the same Wi‑Fi. Peers show up automatically.</p>
+              </div>
+            </li>
+          </ol>
+
+          <p class="usage-lead usage-cmds-lead">
+            Handy slash commands while you’re in a chat:
+          </p>
+
+          <dl class="cmd-list">
+            <div class="cmd">
+              <dt><code>/nick &lt;name&gt;</code></dt>
+              <dd>Change your username — saved and announced to peers.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/peers</code></dt>
+              <dd>List everyone currently online on your network.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/clear</code></dt>
+              <dd>Clear the message feed in your terminal.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/update</code></dt>
+              <dd>Check GitHub for a newer LANterm release.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/update install</code></dt>
+              <dd>Download and apply the latest release, then restart.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/help</code></dt>
+              <dd>Show the list of available commands.</dd>
+            </div>
+            <div class="cmd">
+              <dt><code>/quit</code> · <code>/exit</code></dt>
+              <dd>Say goodbye to peers and leave the chat.</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
