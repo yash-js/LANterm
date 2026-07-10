@@ -1,4 +1,4 @@
-<img src="docs/assets/lanterm-lockup.svg" alt="LANterm" height="40" />
+<img src="docs/assets/lanterm-lockup.png" alt="LANterm" height="48" />
 
 # LANterm
 
@@ -156,7 +156,7 @@ Each target is built on a matching runner and uploaded under the exact asset nam
 | --- | --- |
 | `lanterm-windows-x64.exe` | `windows-latest` |
 | `lanterm-darwin-arm64` | `macos-latest` |
-| `lanterm-darwin-x64` | `macos-13` |
+| `lanterm-darwin-x64` | `macos-latest` (cross-compiled) |
 | `lanterm-linux-x64` | `ubuntu-latest` |
 | `lanterm-linux-arm64` | `ubuntu-24.04-arm` |
 
@@ -231,6 +231,7 @@ src/
 scripts/
   build-target.js   Cross-compile helper (native builds + icon embedding)
   make-icon.js      Generate assets/lanterm.ico from the brand mark
+  make-lockup.js    Generate docs/assets/lanterm-lockup.png (README header)
   next-version.js   Compute next semver from Conventional Commits
   set-version.js    Stamp version into src/version.js + package.json
 .github/workflows/
