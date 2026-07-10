@@ -53,8 +53,10 @@ jobs:
           - target: darwin-arm64
             os: macos-latest
             outfile: lanterm-darwin-arm64
+          # Intel macOS runners (macos-13) are being retired and often never get
+          # picked up, so cross-compile darwin-x64 on the Apple-Silicon runner.
           - target: darwin-x64
-            os: macos-13
+            os: macos-latest
             outfile: lanterm-darwin-x64
           - target: linux-x64
             os: ubuntu-latest
