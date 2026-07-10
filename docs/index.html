@@ -328,6 +328,13 @@
               </div>
               <pre><code>curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-windows-x64.exe -o lanterm.exe
 .\lanterm.exe</code></pre>
+              <p class="code-hint">
+                On a corporate / locked-down network and hitting a
+                <code>schannel</code> revocation error? Add
+                <code>--ssl-no-revoke</code> (<code>curl --ssl-no-revoke -L …</code>),
+                or download from the
+                <a href="https://github.com/yash-js/lanterm/releases/latest">Releases page</a>.
+              </p>
             </div>
 
             <div class="code-block os-panel" data-os-panel="macos" role="tabpanel" hidden>

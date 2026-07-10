@@ -114,6 +114,18 @@ chmod +x lanterm-darwin-arm64   # once
 ./lanterm-darwin-arm64
 ```
 
+> **Restricted / corporate network?** If `curl` fails with a `schannel` revocation error (`curl: (35) … CRYPT_E_NO_REVOCATION_CHECK`), your network is blocking certificate-revocation lookups. Work around it with any of:
+>
+> ```bat
+> curl --ssl-no-revoke -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-windows-x64.exe -o lanterm.exe
+> ```
+>
+> ```powershell
+> Invoke-WebRequest -Uri https://github.com/yash-js/lanterm/releases/latest/download/lanterm-windows-x64.exe -OutFile lanterm.exe
+> ```
+>
+> …or just download the binary from the [Releases page](https://github.com/yash-js/lanterm/releases/latest) in a browser. `--ssl-no-revoke` only skips the revocation check; the certificate is still validated.
+
 On first launch the binary **installs itself** onto your PATH:
 
 - **Windows:** `%LOCALAPPDATA%\Programs\lanterm\lanterm.exe`
