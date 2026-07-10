@@ -1,0 +1,154 @@
+name: Release
+
+# Conventional-Commit driven releases. On every push to main the workflow reads
+# the commit messages since the last tag and decides the semver bump:
+#   feat!: / fix!: / "BREAKING CHANGE:"  -> major
+#   feat:                                -> minor
+#   fix: / perf:                         -> patch
+#   anything else                        -> no release
+#
+# When a release is warranted it bumps src/version.js + package.json, commits
+# that back to main ([skip ci]), tags v<version>, builds every platform binary,
+# and publishes a GitHub Release. Asset names must match getReleaseAssetName().
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  # Analyze commits and compute the next version.
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      release: ${{ steps.v.outputs.release }}
+      bump: ${{ steps.v.outputs.bump }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history + tags to detect the bump
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - id: v
+        run: node scripts/next-version.js >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Each target builds on its native runner so it compiles without a
+          # cross-download, and so the Windows target embeds the .ico icon
+          # (bun --windows-icon only works on a Windows host).
+          - target: windows-x64
+            os: windows-latest
+            outfile: lanterm-windows-x64.exe
+          - target: darwin-arm64
+            os: macos-latest
+            outfile: lanterm-darwin-arm64
+          - target: darwin-x64
+            os: macos-13
+            outfile: lanterm-darwin-x64
+          - target: linux-x64
+            os: ubuntu-latest
+            outfile: lanterm-linux-x64
+          - target: linux-arm64
+            os: ubuntu-24.04-arm
+            outfile: lanterm-linux-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node runs the icon generator (sharp) and the version stamp.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Stamp the computed version so the compiled binary reports it correctly.
+      - name: Stamp version
+        shell: bash
+        run: node scripts/set-version.js "${{ needs.version.outputs.version }}"
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build ${{ matrix.target }}
+        run: bun scripts/build-target.js ${{ matrix.target }}
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.outfile }}
+          path: dist/${{ matrix.outfile }}
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    needs: [version, build]
+    if: needs.version.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Optionally commit the version bump back to main so the repo's
+      # src/version.js stays in sync. This is OFF by default (tag-only), because
+      # it requires the Actions bot to push to main. Enable it by setting the
+      # repository/org variable COMMIT_BACK_VERSION to "true".
+      # [skip ci] keeps the bump commit from retriggering the workflow.
+      - name: Bump version in repo (optional)
+        id: commit
+        shell: bash
+        run: |
+          TARGET_SHA="$GITHUB_SHA"
+          if [ "${{ vars.COMMIT_BACK_VERSION }}" = "true" ]; then
+            node scripts/set-version.js "${{ needs.version.outputs.version }}"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if [ -n "$(git status --porcelain)" ]; then
+              git commit -am "chore(release): v${{ needs.version.outputs.version }} [skip ci]"
+              git push origin HEAD:main
+              TARGET_SHA="$(git rev-parse HEAD)"
+            else
+              echo "version.js already up to date; no bump commit needed."
+            fi
+          else
+            echo "COMMIT_BACK_VERSION not enabled — tagging without pushing a bump commit."
+          fi
+          echo "sha=$TARGET_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Download all binaries
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: List assets
+        run: ls -la dist
+
+      # Creates the v<version> tag on the bump commit and publishes it.
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.version.outputs.version }}
+          target_commitish: ${{ steps.commit.outputs.sha }}
+          name: LANterm v${{ needs.version.outputs.version }}
+          files: dist/*
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          draft: false
+          prerelease: false

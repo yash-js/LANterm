@@ -1,0 +1,39 @@
+name: CI
+
+# Smoke-test that the app installs and compiles to a standalone binary on every
+# push / PR to main, so tagging a release later is low-risk.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Compile (linux-x64)
+        run: bun scripts/build-target.js linux-x64
+
+      - name: Sanity-check the binary
+        run: |
+          test -f dist/lanterm-linux-x64
+          ls -la dist/lanterm-linux-x64

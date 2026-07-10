@@ -1,0 +1,17 @@
+dist/
+lanterm.exe
+lanterm
+lanterm-*
+lantern.exe
+lantern
+lantern-*
+!docs/
+*.exe
+*.blob
+sea-prep.blob
+node_modules/
+.DS_Store
+*.log
+.env
+.idea/
+.vscode/

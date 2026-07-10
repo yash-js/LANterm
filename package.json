@@ -1,0 +1,50 @@
+{
+  "name": "lanterm",
+  "version": "1.0.0",
+  "description": "LANterm — peer-to-peer terminal chat for Windows, macOS, and Linux. No server, no internet.",
+  "type": "module",
+  "bin": {
+    "lanterm": "./src/index.js"
+  },
+  "scripts": {
+    "start": "bun ./src/index.js",
+    "dev": "bun ./src/index.js",
+    "icon": "node scripts/make-icon.js",
+    "build": "bun scripts/build-target.js windows-x64",
+    "build:win": "bun scripts/build-target.js windows-x64",
+    "build:mac": "bun scripts/build-target.js darwin-arm64",
+    "build:mac-arm64": "bun scripts/build-target.js darwin-arm64",
+    "build:mac-x64": "bun scripts/build-target.js darwin-x64",
+    "build:linux": "bun scripts/build-target.js linux-x64",
+    "build:linux-x64": "bun scripts/build-target.js linux-x64",
+    "build:linux-arm64": "bun scripts/build-target.js linux-arm64",
+    "build:all": "bun scripts/build-target.js all",
+    "build:bundle": "bun build ./src/index.js --outfile dist/lanterm.bundle.js --target=node",
+    "build:sea-blob": "node --experimental-sea-config sea-config.json"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "lan",
+    "p2p",
+    "chat",
+    "udp",
+    "cli",
+    "ink",
+    "cross-platform",
+    "lanterm"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ink": "^5.2.0",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "png-to-ico": "^3.0.2",
+    "react-devtools-core": "^4.28.5",
+    "sharp": "^0.35.3"
+  }
+}

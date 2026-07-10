@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO -->
+    <title>LANterm — peer-to-peer terminal chat for your LAN</title>
+    <meta
+      name="description"
+      content="LANterm — peer-to-peer terminal chat for your LAN. Windows, macOS, and Linux. No server, no cloud, no internet — fully decentralized UDP."
+    />
+    <meta name="theme-color" content="#0c0b0a" />
+    <link rel="canonical" href="https://lanterm.in/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LANterm" />
+    <meta property="og:title" content="LANterm — Chat on your LAN. No server. No cloud. No trace." />
+    <meta
+      property="og:description"
+      content="Peer-to-peer terminal chat for the same WiFi. Zero setup. Fully decentralized."
+    />
+    <meta property="og:url" content="https://lanterm.in/" />
+    <meta property="og:image" content="https://lanterm.in/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LANterm — Chat on your LAN. No server. No cloud. No trace." />
+    <meta
+      name="twitter:description"
+      content="Peer-to-peer terminal chat for the same WiFi. Zero setup. Fully decentralized."
+    />
+    <meta name="twitter:image" content="https://lanterm.in/og-image.png" />
+
+    <!-- Favicon: LANterm prompt mark "> ▊" (no glow filter for a crisp small edge) -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C0B0A'/%3E%3Cpolyline points='8,10 14,16 8,22' fill='none' stroke='%23F5F0E8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='18' y='12' width='6' height='8' rx='1.5' fill='%23FF8C42'/%3E%3C/svg%3E"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!--
+      Repo URL constant — also mirrored in main.js as GITHUB_REPO.
+      Find-and-replace: https://github.com/yash-js/lanterm
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="#top" aria-label="LANterm home">
+          <svg class="logo-mark" width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+            <!-- prompt mark: chevron ">" + amber cursor block -->
+            <polyline
+              points="8,10 14,16 8,22"
+              fill="none"
+              stroke="var(--text)"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <rect x="18" y="12" width="6" height="8" rx="1.5" fill="var(--amber)" />
+          </svg>
+          <span class="logo-wordmark"
+            ><span class="logo-lan">LAN</span>term</span
+          >
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#install">Install</a>
+          <a href="#how">How it works</a>
+          <a
+            class="btn btn-github"
+            href="https://github.com/yash-js/lanterm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            GitHub
+            <span class="star-count" aria-label="stars">★ —</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ── Hero ─────────────────────────────────────────── -->
+      <section class="hero" id="top">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="logo-lan">LAN</span>term · open source · MIT
+            </p>
+            <h1>Chat on your LAN.<br />No server. No cloud.<br />No trace.</h1>
+            <p class="hero-sub">
+              Peer-to-peer terminal chat for everyone on the same Wi‑Fi.
+              Windows, macOS, and Linux. One binary. Zero runtime. Fully decentralized.
+            </p>
+            <div class="hero-ctas">
+              <a
+                class="btn btn-primary"
+                href="https://github.com/yash-js/lanterm"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View on GitHub</a
+              >
+              <button
+                class="btn btn-secondary"
+                type="button"
+                id="hero-copy-install"
+                data-copy-label="Copy install command"
+              >
+                Copy install command
+              </button>
+            </div>
+
+            <div class="name-breakdown reveal-on-scroll" aria-label="LANterm name meaning">
+              <div class="name-breakdown-word" aria-hidden="true">
+                <span class="name-seg-lan">LAN</span><span class="name-seg-term">term</span>
+              </div>
+              <dl class="name-legend">
+                <div class="name-legend-row">
+                  <dt class="name-legend-key name-key-lan">LAN</dt>
+                  <dd class="name-legend-val">local area network — your local WiFi or wired network</dd>
+                </div>
+                <div class="name-legend-row">
+                  <dt class="name-legend-key name-key-term">term</dt>
+                  <dd class="name-legend-val">terminal — where the app runs</dd>
+                </div>
+              </dl>
+              <p class="name-breakdown-summary">
+                <span class="name-seg-lan">LAN</span>term = chat with everyone on your local
+                network, straight from your terminal.
+              </p>
+            </div>
+          </div>
+
+          <!-- Faux terminal — visual centerpiece -->
+          <div class="terminal" role="img" aria-label="Animated demo of a LANterm chat session">
+            <div class="terminal-chrome">
+              <span class="dot dot-r" aria-hidden="true"></span>
+              <span class="dot dot-y" aria-hidden="true"></span>
+              <span class="dot dot-g" aria-hidden="true"></span>
+              <span class="terminal-title">lanterm — UDP :47474</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="term-line term-header">
+                <span class="term-accent"><span class="term-lan">LAN</span>term</span>
+                <span class="term-dim"> as </span>
+                <span class="term-you">you</span>
+                <span class="term-dim"> · connected: </span>
+                <span class="term-dim" id="term-peers">(none yet)</span>
+              </div>
+              <div class="term-feed" id="term-feed" aria-live="off"></div>
+              <div class="term-input">
+                <span class="term-prompt">&gt;</span>
+                <span id="term-typed"></span><span class="cursor" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Features ─────────────────────────────────────── -->
+      <section class="section" id="features">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">Features</p>
+            <h2>Built for the local network, not the cloud.</h2>
+          </header>
+
+          <ul class="feature-grid">
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 17V7l8-4 8 4v10l-8 4-8-4z" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M12 11v6M9 14h6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <h3>Zero setup</h3>
+              <p>Single binary for your OS. No Node, no runtime, no installer dance.</p>
+            </li>
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <h3>Serverless &amp; private</h3>
+              <p>Pure peer-to-peer UDP. Nothing leaves your LAN. No accounts, no telemetry.</p>
+            </li>
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="8" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <circle cx="16" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <circle cx="16" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M10.5 10.5l3-1.5M10.5 13.5l3 1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <h3>Auto-discovery</h3>
+              <p>Peers on the same Wi‑Fi just appear. Heartbeats in, prune out — no directory.</p>
+            </li>
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M17 4l2 2-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <h3>Your name, your call</h3>
+              <p>Pick a username on first run. Change it anytime with <code>/nick</code>.</p>
+            </li>
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2" y="4" width="9" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <rect x="13" y="4" width="9" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M5 15h3M6.5 15v2M4 19h6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M16 19h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <h3>Cross-platform</h3>
+              <p>Windows, macOS, and Linux — same LAN, mixed machines, one protocol.</p>
+            </li>
+            <li class="feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v3M7 8h10v11H7V8zM9 8V6.5A3 3 0 0 1 15 6.5V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10 13h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <h3>Open source (MIT)</h3>
+              <p>Read it, fork it, ship it. Free forever under the MIT license.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── How it works ─────────────────────────────────── -->
+      <section class="section section-alt" id="how">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">How it works</p>
+            <h2>Three steps. Same Wi‑Fi. Done.</h2>
+          </header>
+
+          <ol class="steps">
+            <li class="step">
+              <span class="step-num" aria-hidden="true">01</span>
+              <div>
+                <h3>Download the binary</h3>
+                <p>Grab the build for Windows, macOS, or Linux. No Node for end users.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num" aria-hidden="true">02</span>
+              <div>
+                <h3>Run it &amp; pick a username</h3>
+                <p>First launch asks for a name, then you’re on the LAN.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num" aria-hidden="true">03</span>
+              <div>
+                <h3>Peers appear — start chatting</h3>
+                <p>Anyone else on the same Wi‑Fi running LANterm shows up automatically.</p>
+              </div>
+            </li>
+          </ol>
+
+          <aside class="firewall-note" role="note">
+            <strong>Network permission:</strong> allow local/UDP access on first run
+            (Windows Firewall → <em>Allow</em> on Private networks; macOS local network prompt;
+            Linux firewalls → UDP <code>47474</code>). Otherwise peers won’t discover you.
+          </aside>
+        </div>
+      </section>
+
+      <!-- ── Install ──────────────────────────────────────── -->
+      <section class="section" id="install">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">Quick start</p>
+            <h2>Install &amp; run</h2>
+          </header>
+
+          <div class="os-tabs" role="tablist" aria-label="Choose your platform">
+            <button class="os-tab is-active" type="button" role="tab" aria-selected="true" data-os="windows">
+              Windows
+            </button>
+            <button class="os-tab" type="button" role="tab" aria-selected="false" data-os="macos">
+              macOS
+            </button>
+            <button class="os-tab" type="button" role="tab" aria-selected="false" data-os="linux">
+              Linux
+            </button>
+          </div>
+
+          <div class="install-blocks">
+            <div class="code-block os-panel is-active" data-os-panel="windows" role="tabpanel">
+              <div class="code-block-bar">
+                <span class="code-label">Download (Windows x64)</span>
+                <button
+                  class="btn-copy"
+                  type="button"
+                  data-copy="curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-windows-x64.exe -o lanterm.exe&#10;.\\lanterm.exe"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code>curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-windows-x64.exe -o lanterm.exe
+.\lanterm.exe</code></pre>
+            </div>
+
+            <div class="code-block os-panel" data-os-panel="macos" role="tabpanel" hidden>
+              <div class="code-block-bar">
+                <span class="code-label">Download (macOS Apple Silicon)</span>
+                <button
+                  class="btn-copy"
+                  type="button"
+                  data-copy="curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-darwin-arm64 -o lanterm&#10;chmod +x lanterm&#10;./lanterm"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code>curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-darwin-arm64 -o lanterm
+chmod +x lanterm
+./lanterm</code></pre>
+              <p class="code-hint">Intel Mac? Use <code>lanterm-darwin-x64</code> instead.</p>
+            </div>
+
+            <div class="code-block os-panel" data-os-panel="linux" role="tabpanel" hidden>
+              <div class="code-block-bar">
+                <span class="code-label">Download (Linux x64)</span>
+                <button
+                  class="btn-copy"
+                  type="button"
+                  data-copy="curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-linux-x64 -o lanterm&#10;chmod +x lanterm&#10;./lanterm"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code>curl -L https://github.com/yash-js/lanterm/releases/latest/download/lanterm-linux-x64 -o lanterm
+chmod +x lanterm
+./lanterm</code></pre>
+              <p class="code-hint">ARM64? Use <code>lanterm-linux-arm64</code> instead.</p>
+            </div>
+
+            <div class="code-block">
+              <div class="code-block-bar">
+                <span class="code-label">Build from source (any OS)</span>
+                <button
+                  class="btn-copy"
+                  type="button"
+                  data-copy="git clone https://github.com/yash-js/lanterm.git&#10;cd lanterm&#10;npm install&#10;npm run build:all"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre><code>git clone https://github.com/yash-js/lanterm.git
+cd lanterm
+npm install
+npm run build:win        # or build:mac / build:linux / build:all</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Open source CTA ──────────────────────────────── -->
+      <section class="section cta-section" id="oss">
+        <div class="container cta-inner">
+          <div class="cta-glow" aria-hidden="true"></div>
+          <p class="eyebrow">Open source</p>
+          <h2>Free. MIT-licensed. Yours to fork.</h2>
+          <p class="cta-copy">
+            LANterm is launching open source on GitHub. Star the repo, open an issue,
+            or grab a good first issue and ship a PR.
+          </p>
+          <div class="cta-links">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/yash-js/lanterm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Star on GitHub</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/yash-js/lanterm/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Issues</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/yash-js/lanterm/labels/good%20first%20issue"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Good first issue</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a class="logo" href="#top" aria-label="LANterm home">
+            <svg class="logo-mark" width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
+              <!-- prompt mark: chevron ">" + amber cursor block -->
+              <polyline
+                points="8,10 14,16 8,22"
+                fill="none"
+                stroke="var(--text)"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <rect x="18" y="12" width="6" height="8" rx="1.5" fill="var(--amber)" />
+            </svg>
+            <span class="logo-wordmark"
+              ><span class="logo-lan">LAN</span>term</span
+            >
+          </a>
+          <p class="footer-tag">Built with ❤️ over UDP</p>
+          <p class="footer-name-meaning">
+            <span class="logo-lan">LAN</span>term = LAN + terminal — peer-to-peer chat that never leaves your local network.
+          </p>
+        </div>
+
+        <div class="footer-meta">
+          <p>
+            <a href="https://github.com/yash-js/lanterm/blob/main/LICENSE" target="_blank" rel="noopener noreferrer"
+              >MIT License</a
+            >
+            ·
+            <a href="https://github.com/yash-js/lanterm" target="_blank" rel="noopener noreferrer"
+              >GitHub</a
+            >
+          </p>
+          <p>
+            Crafted by
+            <a href="https://linkedin.com/in/yashpurani" target="_blank" rel="noopener noreferrer">Yash</a>
+          </p>
+          <p class="footer-small">Works on the same local network only. No internet required — and none used.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
